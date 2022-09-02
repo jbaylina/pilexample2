@@ -1,0 +1,27 @@
+
+constant %N = 2**8;
+
+namespace Global(%N);
+    pol constant L1;
+
+namespace PlonkCircuit(%N);
+    pol constant S[3];
+    pol constant Qm, Ql, Qr, Qo, Qk;
+    pol constant QCountBits;
+    pol commit a[3];
+
+    public pub0 = a[0](0);
+    Global.L1 * (a[0] - :pub0) = 0;
+
+// Normal plonk ecuations
+    pol a01 = a[0]*a[1];
+    Qm*a01 + Ql*a[0] + Qr*a[1] + Qo*a[2] + Qk = 0;
+
+// Connection equations
+    {a[0], a[1], a[2]} connect {S[0], S[1], S[2]};
+
+// Plookup
+    pol constant kIn, kOut;
+
+    QCountBits {a[0], a[2]} in {kIn, kOut};
+

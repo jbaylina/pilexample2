@@ -12,9 +12,10 @@
     "starksetup": "node node_modules/pil-stark/src/main_buildconsttree.js -c build/circuit.const -p src/circuit.pil -s src/circuit.starkstruct.json -t build/circuit.consttree -v build/circuit.verkey.json",
     "starkprove": "node node_modules/pil-stark/src/main_prover.js -m build/circuit.commit -c build/circuit.const -t build/circuit.consttree -p src/circuit.pil -s src/circuit.starkstruct.json -o build/proof.json -z build/proof.zkin.json -b build/public.json --proverAddr 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
     "starkverify": "node node_modules/pil-stark/src/main_verifier.js -p src/circuit.pil -s src/circuit.starkstruct.json -v build/circuit.verkey.json -o build/proof.json -b build/public.json",
-    "pil2circom": "node node_modules/pil-stark/src/main_pil2circom.js -p src/circuit.pil -s src/circuit.starkstruct.json -v build/circuit.verkey.json -o build/verifier.circom",
-    "compilaverifier": "circom build/verifier.circom --r1cs --wasm --sym -l node_modules/pil-stark/circuits.bn128 -o build --O1",
-    "verwc": "snarkjs wc build/verifier_js/verifier.wasm build/proof.zkin.json build/verifier.wtns"
+    "g16gen": "node node_modules/pil-stark/src/main_pil2circom.js -p src/circuit.pil -s src/circuit.starkstruct.json -v build/circuit.verkey.json -o build/verifier.circom",
+    "g16compile": "circom build/verifier.circom --r1cs --wasm --sym -l node_modules/pil-stark/circuits.bn128 -l node_modules/circomlib/circuits -o build --O1",
+    "g16wc": "snarkjs wc build/verifier_js/verifier.wasm build/proof.zkin.json build/verifier.wtns",
+    "g16setup": ""
   },
   "author": "",
   "license": "ISC",
@@ -23,7 +24,7 @@
     "mocha": "^10.0.0"
   },
   "dependencies": {
-    "pil-stark": "^0.0.17",
+    "pil-stark": "^0.0.18",
     "pilcom": "^0.0.15"
   }
 }
